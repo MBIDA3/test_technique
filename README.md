@@ -30,3 +30,6 @@ Quand nous sommes connectes en tant que ROLE_ADMIN
 Quand nous sommes une connectes en tant que ROLE_USER
 
 - [ ] Pouvoir consulter son profil
+
+
+Rajouter des connaissances personnelles est un plus 
