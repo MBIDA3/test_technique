@@ -1,6 +1,6 @@
 # test_technique
 
-Stack technique PHP - Symfony
+Stack technique PHP - Symfony 7 et php 8.3.7
 
 - [ ] Creer une base de donnees  test_cisad
 
@@ -32,4 +32,4 @@ Quand nous sommes une connectes en tant que ROLE_USER
 - [ ] Pouvoir consulter son profil
 
 
-Rajouter des connaissances personnelles est un plus 
+Ajouter des connaissances personnelles est un plus 
