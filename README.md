@@ -2,6 +2,8 @@
 
 Stack technique PHP - Symfony 7 et php 8.3.7
 
+- [ ] Utiliser postres
+
 - [ ] Creer une base de donnees  test_cisad
 
 - [ ] Faire une table user 
@@ -30,6 +32,7 @@ Quand nous sommes connectes en tant que ROLE_ADMIN
 Quand nous sommes une connectes en tant que ROLE_USER
 
 - [ ] Pouvoir consulter son profil
+- [ ] Faire un front pour les pages
 
 
 Ajouter des connaissances personnelles est un plus 
