@@ -58,6 +58,22 @@
                 color: #ffffff !important;
             }
 
+            /* Active Navigation Link Styling */
+            .nav-link {
+                color: #94a3b8 !important;
+                padding: 0.5rem 0.75rem !important;
+                transition: color 0.15s ease, border-color 0.15s ease;
+                border-bottom: 2px solid transparent;
+            }
+            .nav-link:hover {
+                color: #f8fafc !important;
+            }
+            .nav-link.active {
+                color: #ffffff !important;
+                font-weight: 600 !important;
+                border-bottom: 2px solid var(--btn-primary);
+            }
+
             /* Alert Banners Contrast High Visibility */
             .alert-danger {
                 background-color: #7f1d1d !important;
@@ -186,17 +202,17 @@
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_dashboard') }}">Dashboard</a>
+                                    <a class="nav-link {{ app.current_route == 'app_admin_dashboard' ? 'active' : '' }}" href="{{ path('app_admin_dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
+                                    <a class="nav-link {{ app.current_route in ['app_admin_user_index', 'app_admin_user_new', 'app_admin_user_edit', 'app_admin_infos_edit'] ? 'active' : '' }}" href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_csv_import') }}">Importer CSV</a>
+                                    <a class="nav-link {{ app.current_route == 'app_admin_csv_import' ? 'active' : '' }}" href="{{ path('app_admin_csv_import') }}">Importer CSV</a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_user_profile') }}">Mon Profil</a>
+                                    <a class="nav-link {{ app.current_route == 'app_user_profile' ? 'active' : '' }}" href="{{ path('app_user_profile') }}">Mon Profil</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item ms-2">
@@ -206,7 +222,7 @@
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link text-slate-300" href="{{ path('app_login') }}">Connexion</a>
+                                <a class="nav-link {{ app.current_route == 'app_login' ? 'active' : '' }}" href="{{ path('app_login') }}">Connexion</a>
                             </li>
                             <li class="nav-item">
                                 <a class="btn-app btn-app-primary ms-2" href="{{ path('app_register') }}">
