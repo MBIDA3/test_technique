@@ -189,17 +189,18 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <ul class="navbar-nav ms-auto align-items-center gap-3">
                         {% if app.user %}
-                            <li class="nav-item me-2">
-                                <span class="badge bg-dark border border-secondary text-light px-3 py-2 fw-normal d-flex align-items-center gap-1.5">
-                                    <i class="fa-solid fa-user text-secondary"></i> {{ app.user.username }}
+                            <li class="nav-item">
+                                <div class="d-flex align-items-center gap-2 bg-dark bg-opacity-75 border border-secondary border-opacity-40 rounded-pill px-3 py-1.5 text-light small">
+                                    <i class="fa-solid fa-user text-primary"></i>
+                                    <span class="fw-semibold text-white me-1">{{ app.user.username }}</span>
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <span class="badge bg-danger ms-1">ADMIN</span>
+                                        <span class="badge bg-danger rounded-pill px-2">ADMIN</span>
                                     {% else %}
-                                        <span class="badge bg-info ms-1">USER</span>
+                                        <span class="badge bg-secondary rounded-pill px-2">USER</span>
                                     {% endif %}
-                                </span>
+                                </div>
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item">
@@ -216,7 +217,7 @@
                                     <a class="nav-link {{ app.current_route == 'app_user_profile' ? 'active' : '' }}" href="{{ path('app_user_profile') }}">Mon Profil</a>
                                 </li>
                             {% endif %}
-                            <li class="nav-item ms-2">
+                            <li class="nav-item ms-1">
                                 <a class="btn-app btn-app-sm btn-app-danger" href="{{ path('app_logout') }}">
                                     Déconnexion
                                 </a>
