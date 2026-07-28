@@ -1,0 +1,4 @@
+username;email;password;roles;rank;victoire;defaite
+player_one;player1@test.fr;Pass1234!;ROLE_USER;Diamant;45;12
+player_two;player2@test.fr;Pass5678!;ROLE_USER;Platine;30;20
+super_admin;admin2@test.fr;Admin1234!;ROLE_ADMIN;Challenger;150;5

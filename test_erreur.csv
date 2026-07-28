@@ -1,0 +1,4 @@
+username;email;password;roles;rank;victoire;defaite
+valid_user;valid@test.fr;Pass1234!;ROLE_USER;Gold;10;5
+;bad_username@test.fr;Pass1234!;ROLE_USER;Silver;5;5
+invalid_user;invalid_email;Pass1234!;ROLE_USER;Iron;0;0
