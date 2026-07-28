@@ -3,65 +3,109 @@
 {% block title %}Gestion des Utilisateurs - Cisad Gaming{% endblock %}
 
 {% block body %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 fw-bold">Gestion des Utilisateurs</h1>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
     <div>
-        <a href="{{ path('app_admin_csv_import') }}" class="btn btn-primary-custom me-2">
-            📥 Importer CSV
+        <h1 class="h2 fw-bold text-white mb-1">Gestion des Utilisateurs</h1>
+        <p class="text-muted small mb-0">Consultez, modifiez et gérez l'ensemble des comptes et leurs statistiques de jeu.</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        <a href="{{ path('app_admin_csv_import') }}" class="btn-action btn-gradient-primary">
+            <i class="fa-solid fa-file-import"></i> Importer CSV
         </a>
-        <a href="{{ path('app_admin_user_new') }}" class="btn btn-success">
-            ➕ Créer Utilisateur
+        <a href="{{ path('app_admin_user_new') }}" class="btn-action btn-gradient-success">
+            <i class="fa-solid fa-user-plus"></i> Créer Utilisateur
         </a>
     </div>
 </div>
 
-<div class="card card-custom p-4">
+<div class="card card-custom p-0 overflow-hidden">
     <div class="table-responsive">
-        <table class="table table-dark table-hover align-middle mb-0">
+        <table class="table table-custom align-middle">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nom d'utilisateur (`username`)</th>
+                    <th style="width: 60px;">ID</th>
+                    <th>Nom d'utilisateur</th>
                     <th>Email</th>
                     <th>Rôles</th>
                     <th>Rang</th>
-                    <th>Victoires</th>
-                    <th>Défaites</th>
+                    <th class="text-center">Victoires</th>
+                    <th class="text-center">Défaites</th>
                     <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for u in users %}
+                    {% set rankLower = u.infos and u.infos.rank ? u.infos.rank|lower : 'unranked' %}
+                    {% set rankClass = 'badge-rank-silver' %}
+                    {% if 'challenger' in rankLower %}
+                        {% set rankClass = 'badge-rank-challenger' %}
+                    {% elseif 'diamant' in rankLower or 'diamond' in rankLower %}
+                        {% set rankClass = 'badge-rank-diamant' %}
+                    {% elseif 'platine' in rankLower or 'platinum' in rankLower %}
+                        {% set rankClass = 'badge-rank-platine' %}
+                    {% elseif 'gold' in rankLower or 'or' in rankLower %}
+                        {% set rankClass = 'badge-rank-gold' %}
+                    {% elseif 'iron' in rankLower or 'fer' in rankLower %}
+                        {% set rankClass = 'badge-rank-iron' %}
+                    {% endif %}
+
                     <tr>
-                        <td>{{ u.id }}</td>
-                        <td class="fw-bold text-info">{{ u.username }}</td>
-                        <td>{{ u.email }}</td>
+                        <td class="text-muted font-monospace small">#{{ u.id }}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2.5">
+                                <div class="user-avatar-sm">
+                                    {{ u.username|first|upper }}
+                                </div>
+                                <span class="fw-bold text-light">{{ u.username }}</span>
+                            </div>
+                        </td>
+                        <td class="text-slate-300">{{ u.email }}</td>
                         <td>
                             {% for role in u.roles %}
-                                <span class="badge bg-{{ role == 'ROLE_ADMIN' ? 'danger' : 'secondary' }} me-1">{{ role }}</span>
+                                {% if role == 'ROLE_ADMIN' %}
+                                    <span class="badge bg-rose-500 bg-opacity-20 text-rose-300 border border-rose-500 border-opacity-30 rounded-pill px-2.5 py-1">ADMIN</span>
+                                {% else %}
+                                    <span class="badge bg-slate-700 text-slate-300 rounded-pill px-2.5 py-1">USER</span>
+                                {% endif %}
                             {% endfor %}
                         </td>
                         <td>
-                            <span class="badge bg-primary px-2 py-1">
+                            <span class="badge-rank {{ rankClass }}">
                                 {{ u.infos ? u.infos.rank|default('Unranked') : 'Unranked' }}
                             </span>
                         </td>
-                        <td><span class="text-success fw-bold">{{ u.infos ? u.infos.victoire|default('0') : '0' }}</span></td>
-                        <td><span class="text-danger fw-bold">{{ u.infos ? u.infos.defaite|default('0') : '0' }}</span></td>
-                        <td class="text-end">
-                            <a href="{{ path('app_admin_user_edit', {id: u.id}) }}" class="btn btn-sm btn-outline-info me-1">Modifier User</a>
-                            {% if u.infos %}
-                                <a href="{{ path('app_admin_infos_edit', {id: u.infos.id}) }}" class="btn btn-sm btn-outline-warning me-1">Modifier Stats</a>
-                            {% endif %}
-                            <form method="post" action="{{ path('app_admin_user_delete', {id: u.id}) }}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete_user_' ~ u.id) }}">
-                                <button class="btn btn-sm btn-outline-danger" type="submit">Supprimer</button>
-                            </form>
+                        <td class="text-center">
+                            <span class="fw-bold text-emerald-400 bg-emerald-500 bg-opacity-10 px-2.5 py-1 rounded-pill small">
+                                {{ u.infos ? u.infos.victoire|default('0') : '0' }} W
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span class="fw-bold text-rose-400 bg-rose-500 bg-opacity-10 px-2.5 py-1 rounded-pill small">
+                                {{ u.infos ? u.infos.defaite|default('0') : '0' }} L
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center justify-content-end gap-1.5">
+                                <a href="{{ path('app_admin_user_edit', {id: u.id}) }}" class="btn-action btn-action-sm btn-gradient-info" title="Modifier l'utilisateur">
+                                    <i class="fa-solid fa-pen-to-square"></i> Modifier User
+                                </a>
+                                {% if u.infos %}
+                                    <a href="{{ path('app_admin_infos_edit', {id: u.infos.id}) }}" class="btn-action btn-action-sm btn-gradient-warning" title="Modifier les statistiques">
+                                        <i class="fa-solid fa-trophy"></i> Stats
+                                    </a>
+                                {% endif %}
+                                <form method="post" action="{{ path('app_admin_user_delete', {id: u.id}) }}" class="d-inline" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete_user_' ~ u.id) }}">
+                                    <button class="btn-action btn-action-sm btn-gradient-danger" type="submit" title="Supprimer">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="8" class="text-center text-muted">Aucun utilisateur trouvé.</td>
+                        <td colspan="8" class="text-center text-muted py-4">Aucun utilisateur trouvé dans la base de données.</td>
                     </tr>
                 {% endfor %}
             </tbody>

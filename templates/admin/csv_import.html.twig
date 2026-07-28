@@ -6,25 +6,36 @@
 <div class="row justify-content-center mt-4">
     <div class="col-md-7 col-lg-6">
         <div class="card card-custom p-4 shadow-lg">
-            <h1 class="h3 mb-3 text-center fw-bold">Importation Utilisateurs via CSV</h1>
-            <p class="text-muted text-center mb-4">
-                Téléversez un fichier CSV respectant le format requis (ex: <code>username;email;password;roles;rank;victoire;defaite</code>).
-            </p>
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-indigo-500 bg-opacity-20 text-indigo-400 p-3 rounded-circle mb-3 fs-3">
+                    <i class="fa-solid fa-file-csv"></i>
+                </div>
+                <h1 class="h3 fw-bold text-white mb-2">Importation Utilisateurs via CSV</h1>
+                <p class="text-muted small mb-0">
+                    Sélectionnez un fichier CSV structuré pour créer plusieurs comptes et statistiques en une seule opération sécurisée.
+                </p>
+            </div>
 
-            <div class="alert alert-info py-2 px-3 small mb-4">
-                💡 <strong>Conseil :</strong> Vous pouvez tester en important le fichier <code>test.csv</code> fourni avec le projet.
+            <div class="p-3 bg-dark bg-opacity-50 border border-secondary border-opacity-25 rounded-3 mb-4 small">
+                <div class="fw-bold text-indigo-300 mb-1"><i class="fa-solid fa-circle-info me-1"></i> Format attendu du fichier :</div>
+                <code class="text-slate-300 d-block p-2 bg-black bg-opacity-40 rounded">username;email;password;roles;rank;victoire;defaite</code>
+                <div class="text-muted mt-2">💡 Conseil : Vous pouvez sélectionner le fichier <code>test.csv</code> fourni dans le dossier du projet.</div>
             </div>
 
             {{ form_start(form) }}
                 <div class="mb-4">
-                    {{ form_label(form.file, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                    {{ form_widget(form.file, {'attr': {'class': 'form-control bg-dark text-light border-secondary'}}) }}
-                    <div class="text-danger small mt-1">{{ form_errors(form.file) }}</div>
+                    {{ form_label(form.file, null, {'label_attr': {'class': 'form-label fw-semibold text-slate-200'}}) }}
+                    {{ form_widget(form.file, {'attr': {'class': 'form-control bg-dark text-light border-secondary border-opacity-50 py-2.5'}}) }}
+                    <div class="text-rose-400 small mt-1.5">{{ form_errors(form.file) }}</div>
                 </div>
 
-                <div class="d-flex justify-content-between mt-4">
-                    <a href="{{ path('app_admin_user_index') }}" class="btn btn-outline-secondary">← Retour</a>
-                    <button type="submit" class="btn btn-primary-custom px-4 fw-bold">🚀 Lancer l'Importation</button>
+                <div class="d-flex justify-content-between align-items-center pt-2">
+                    <a href="{{ path('app_admin_user_index') }}" class="btn-action btn-gradient-info">
+                        <i class="fa-solid fa-arrow-left"></i> Retour
+                    </a>
+                    <button type="submit" class="btn-action btn-gradient-primary px-4">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Lancer l'Importation
+                    </button>
                 </div>
             {{ form_end(form) }}
         </div>
