@@ -7,8 +7,8 @@
     <div class="col-md-7 col-lg-6">
         <div class="card card-custom p-4 shadow-lg">
             <div class="text-center mb-4">
-                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-20 text-primary p-3 rounded-circle mb-3 fs-3">
-                    <i class="fa-solid fa-file-csv"></i>
+                <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white p-3 rounded-circle mb-3 fs-3" style="width: 64px; height: 64px;">
+                    <i class="fa-solid fa-file-csv text-white"></i>
                 </div>
                 <h1 class="h3 fw-bold text-white mb-2">Importation Utilisateurs via CSV</h1>
                 <p class="text-secondary small mb-0">
@@ -19,7 +19,7 @@
             <div class="p-3 bg-dark border border-secondary border-opacity-50 rounded mb-4 small">
                 <div class="fw-semibold text-light mb-1"><i class="fa-solid fa-circle-info text-primary me-1"></i> Format attendu du fichier :</div>
                 <code class="text-emerald-400 d-block p-2 bg-black bg-opacity-50 rounded">username;email;password;roles;rank;victoire;defaite</code>
-                <div class="text-secondary mt-2"><i class="fa-solid fa-lightbulb text-warning me-1"></i> Conseil : Vous pouvez sélectionner le fichier <code>test.csv</code> situé à la racine du projet.</div>
+                <div class="text-secondary mt-2"><i class="fa-solid fa-circle-check text-success me-1"></i> Remarque : Vous pouvez sélectionner le fichier <code>test.csv</code> situé à la racine du projet.</div>
             </div>
 
             {{ form_start(form) }}
