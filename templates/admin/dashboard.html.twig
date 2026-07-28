@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de Bord Admin - Cisad Gaming{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 fw-bold">Tableau de Bord Administrateur</h1>
+    <div>
+        <a href="{{ path('app_admin_csv_import') }}" class="btn btn-primary-custom">
+            📥 Importer Fichier CSV
+        </a>
+        <a href="{{ path('app_admin_user_new') }}" class="btn btn-success ms-2">
+            ➕ Créer Utilisateur
+        </a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card card-custom p-4 text-center">
+            <h3 class="display-4 fw-bold text-primary">{{ total_users }}</h3>
+            <p class="text-muted mb-0">Utilisateurs enregistrés</p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-custom p-4 text-center">
+            <h3 class="display-4 fw-bold text-info">{{ total_infos }}</h3>
+            <p class="text-muted mb-0">Profils de statistiques créés</p>
+        </div>
+    </div>
+</div>
+
+<div class="card card-custom p-4">
+    <h2 class="h5 fw-bold mb-3">Derniers Utilisateurs Inscrits</h2>
+    <div class="table-responsive">
+        <table class="table table-dark table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email</th>
+                    <th>Rang</th>
+                    <th>Rôles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in latest_users %}
+                    <tr>
+                        <td>{{ u.id }}</td>
+                        <td class="fw-bold">{{ u.username }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>
+                            <span class="badge bg-primary px-2 py-1">
+                                {{ u.infos ? u.infos.rank|default('Unranked') : 'Unranked' }}
+                            </span>
+                        </td>
+                        <td>
+                            {% for role in u.roles %}
+                                <span class="badge bg-secondary me-1">{{ role }}</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_admin_user_edit', {id: u.id}) }}" class="btn btn-sm btn-outline-info me-1">Éditer</a>
+                            {% if u.infos %}
+                                <a href="{{ path('app_admin_infos_edit', {id: u.infos.id}) }}" class="btn btn-sm btn-outline-warning">Stats</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aucun utilisateur trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-2 text-end">
+        <a href="{{ path('app_admin_user_index') }}" class="btn btn-outline-light btn-sm">Voir tous les utilisateurs →</a>
+    </div>
+</div>
+{% endblock %}
