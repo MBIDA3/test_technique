@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Cisad Gaming{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card card-custom p-4 shadow-lg">
+            <h1 class="h3 mb-4 text-center fw-bold">Connexion</h1>
+
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    Nom d'utilisateur ou mot de passe incorrect.
+                </div>
+            {% endif %}
+
+            <form method="post" action="{{ path('app_login') }}">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nom d'utilisateur (`username`)</label>
+                    <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control bg-dark text-light border-secondary" autocomplete="username" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" name="_password" id="password" class="form-control bg-dark text-light border-secondary" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-primary-custom w-100 py-2 fw-bold mt-2" type="submit">
+                    Se connecter
+                </button>
+            </form>
+
+            <div class="text-center mt-4">
+                <span class="text-muted">Pas encore de compte ?</span>
+                <a href="{{ path('app_register') }}" class="text-info text-decoration-none ms-1">S'inscrire</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
