@@ -55,8 +55,7 @@ class AdminDashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
-            $plainPassword = $form->get('plainPassword')->getData();
+            $plainPassword = (string) $form->get('plainPassword')->getData();
             $user->setPassword($passwordHasher->hashPassword($user, $plainPassword));
 
             if ($user->getInfos() === null) {
@@ -92,10 +91,9 @@ class AdminDashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string|null $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
             if (!empty($plainPassword)) {
-                $user->setPassword($passwordHasher->hashPassword($user, $plainPassword));
+                $user->setPassword($passwordHasher->hashPassword($user, (string) $plainPassword));
             }
 
             $em->flush();
@@ -115,7 +113,7 @@ class AdminDashboardController extends AbstractController
     #[Route('/users/{id}/delete', name: 'app_admin_user_delete', methods: ['POST'])]
     public function userDelete(Request $request, User $user, EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('delete_user_' . $user->getId(), (string)$request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete_user_' . $user->getId(), (string) $request->request->get('_token'))) {
             $em->remove($user);
             $em->flush();
             $this->addFlash('success', 'Utilisateur supprimé.');
@@ -151,16 +149,17 @@ class AdminDashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
 
-            try {
-                $count = $csvImporter->importFromPath($file->getPathname());
-                $this->addFlash('success', sprintf('Succès ! %d utilisateurs ont été importés avec succès.', $count));
+            if ($file instanceof UploadedFile) {
+                try {
+                    $count = $csvImporter->importFromPath($file->getPathname());
+                    $this->addFlash('success', sprintf('Succès ! %d utilisateurs ont été importés avec succès.', $count));
 
-                return $this->redirectToRoute('app_admin_user_index');
-            } catch (CsvImportException $e) {
-                $this->addFlash('error', $e->getMessage());
+                    return $this->redirectToRoute('app_admin_user_index');
+                } catch (CsvImportException $e) {
+                    $this->addFlash('error', $e->getMessage());
+                }
             }
         }
 

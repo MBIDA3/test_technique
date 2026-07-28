@@ -21,12 +21,6 @@ class CsvImporterService
     ) {
     }
 
-    /**
-     * Import users from a CSV file path under an atomic SQL transaction.
-     *
-     * @return int Number of users successfully imported
-     * @throws CsvImportException On validation failure or unreadable file
-     */
     public function importFromPath(string $filePath): int
     {
         if (!file_exists($filePath) || !is_readable($filePath)) {
@@ -38,10 +32,8 @@ class CsvImporterService
             throw new CsvImportException('Impossible d\'ouvrir le fichier CSV.');
         }
 
-        // Read header line
         $header = fgetcsv($handle, 0, ';');
         if ($header === false || count($header) < 3) {
-            // Retry with comma delimiter if semicolon didn't yield columns
             rewind($handle);
             $header = fgetcsv($handle, 0, ',');
             $delimiter = ',';
@@ -54,8 +46,7 @@ class CsvImporterService
             throw new CsvImportException('Le fichier CSV est vide ou mal formaté.');
         }
 
-        // Normalize header column names to lowercase
-        $header = array_map(fn($col) => strtolower(trim((string)$col)), $header);
+        $header = array_map(fn($col) => strtolower(trim((string) $col)), $header);
 
         $dtos = [];
         $lineNumber = 1;
@@ -63,7 +54,7 @@ class CsvImporterService
         while (($row = fgetcsv($handle, 0, $delimiter)) !== false) {
             $lineNumber++;
             if (count($row) === 1 && empty($row[0])) {
-                continue; // Skip empty lines
+                continue;
             }
 
             if (count($row) !== count($header)) {
@@ -102,16 +93,14 @@ class CsvImporterService
             return 0;
         }
 
-        // Execute all database insertions within an atomic transaction
         return $this->entityManager->wrapInTransaction(function () use ($dtos): int {
             $count = 0;
             $userRepository = $this->entityManager->getRepository(User::class);
 
             foreach ($dtos as $dto) {
-                // Check if user already exists
                 $existingUser = $userRepository->findOneBy(['username' => $dto->username]);
                 if ($existingUser !== null) {
-                    continue; // Or update existing
+                    continue;
                 }
 
                 $user = new User();
