@@ -8,11 +8,11 @@
         <h1 class="h2 fw-bold text-white mb-1">Gestion des Utilisateurs</h1>
         <p class="text-secondary small mb-0">Consultez, éditez et gérez les comptes et leurs statistiques de jeu.</p>
     </div>
-    <div class="d-flex align-items-center gap-2">
-        <a href="{{ path('app_admin_csv_import') }}" class="btn-app btn-app-primary">
+    <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-2">
+        <a href="{{ path('app_admin_csv_import') }}" class="btn-app btn-app-primary justify-content-center">
             <i class="fa-solid fa-file-import"></i> Importer CSV
         </a>
-        <a href="{{ path('app_admin_user_new') }}" class="btn-app btn-app-success">
+        <a href="{{ path('app_admin_user_new') }}" class="btn-app btn-app-success justify-content-center">
             <i class="fa-solid fa-user-plus"></i> Créer Utilisateur
         </a>
     </div>

@@ -8,11 +8,11 @@
         <h1 class="h2 fw-bold text-white mb-1">Tableau de Bord Administrateur</h1>
         <p class="text-secondary small mb-0">Aperçu rapide des métriques d'utilisateurs et des statistiques du serveur.</p>
     </div>
-    <div class="d-flex align-items-center gap-2">
-        <a href="{{ path('app_admin_csv_import') }}" class="btn-app btn-app-primary">
+    <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center gap-2">
+        <a href="{{ path('app_admin_csv_import') }}" class="btn-app btn-app-primary justify-content-center">
             <i class="fa-solid fa-file-import"></i> Importer CSV
         </a>
-        <a href="{{ path('app_admin_user_new') }}" class="btn-app btn-app-success">
+        <a href="{{ path('app_admin_user_new') }}" class="btn-app btn-app-success justify-content-center">
             <i class="fa-solid fa-user-plus"></i> Créer Utilisateur
         </a>
     </div>
@@ -44,10 +44,12 @@
 </div>
 
 <div class="card card-custom p-0 overflow-hidden">
-    <div class="p-3 border-bottom border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
-        <h2 class="h6 fw-bold mb-0 text-white"><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i> Dernières Inscriptions</h2>
-        <a href="{{ path('app_admin_user_index') }}" class="btn-app btn-app-sm btn-app-secondary">
-            Voir tous les utilisateurs →
+    <div class="p-3 border-bottom border-secondary border-opacity-25 d-flex flex-column flex-sm-row justify-content-sm-between align-items-start align-items-sm-center gap-2">
+        <h2 class="h6 fw-bold mb-0 text-white d-flex align-items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-primary"></i> Dernières Inscriptions
+        </h2>
+        <a href="{{ path('app_admin_user_index') }}" class="btn-app btn-app-sm btn-app-secondary justify-content-center">
+            Voir tous les utilisateurs
         </a>
     </div>
     <div class="table-responsive">
