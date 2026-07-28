@@ -21,7 +21,7 @@
             <div class="row g-3 mb-4">
                 <div class="col-sm-6">
                     <div class="p-3 border border-secondary border-opacity-30 rounded bg-dark">
-                        <span class="text-secondary small d-block mb-1">Nom d'utilisateur (`username`)</span>
+                        <span class="text-secondary small d-block mb-1">Nom d'utilisateur</span>
                         <strong class="fs-5 text-light">{{ user.username }}</strong>
                     </div>
                 </div>
@@ -33,27 +33,29 @@
                 </div>
             </div>
 
-            <h2 class="h5 fw-bold text-white mb-3"><i class="fa-solid fa-chart-simple text-primary me-2"></i> Statistiques de Jeu & Rang</h2>
+            <h2 class="h5 fw-bold text-white mb-3 d-flex align-items-center gap-2">
+                <i class="fa-solid fa-chart-line text-primary"></i> Statistiques de Jeu & Rang
+            </h2>
 
             <div class="row g-3">
                 <div class="col-sm-4">
-                    <div class="p-3 text-center border border-secondary border-opacity-30 rounded bg-dark">
-                        <span class="text-secondary small d-block mb-1">Rang Actuel</span>
-                        <span class="badge bg-primary fs-6 px-3 py-2 rank-badge">
+                    <div class="p-3 text-center border border-secondary border-opacity-30 rounded bg-dark d-flex flex-column align-items-center justify-content-center h-100">
+                        <span class="text-secondary small d-block mb-2">Rang Actuel</span>
+                        <span class="badge-rank badge-rank-silver rank-badge fs-6">
                             <i class="fa-solid fa-trophy text-warning me-1"></i> {{ infos ? infos.rank|default('Unranked') : 'Unranked' }}
                         </span>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="p-3 text-center border border-secondary border-opacity-30 rounded bg-dark">
+                    <div class="p-3 text-center border border-secondary border-opacity-30 rounded bg-dark d-flex flex-column align-items-center justify-content-center h-100">
                         <span class="text-secondary small d-block mb-1">Victoires</span>
-                        <strong class="fs-3 text-emerald-400 font-monospace">{{ infos ? infos.victoire|default('0') : '0' }}</strong>
+                        <strong class="display-6 fw-bold text-success font-monospace mb-0">{{ infos ? infos.victoire|default('0') : '0' }}</strong>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="p-3 text-center border border-secondary border-opacity-30 rounded bg-dark">
+                    <div class="p-3 text-center border border-secondary border-opacity-30 rounded bg-dark d-flex flex-column align-items-center justify-content-center h-100">
                         <span class="text-secondary small d-block mb-1">Défaites</span>
-                        <strong class="fs-3 text-rose-400 font-monospace">{{ infos ? infos.defaite|default('0') : '0' }}</strong>
+                        <strong class="display-6 fw-bold text-danger font-monospace mb-0">{{ infos ? infos.defaite|default('0') : '0' }}</strong>
                     </div>
                 </div>
             </div>
