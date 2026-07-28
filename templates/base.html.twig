@@ -191,16 +191,14 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto align-items-center gap-3">
                         {% if app.user %}
-                            <li class="nav-item">
-                                <div class="d-flex align-items-center gap-2 bg-dark bg-opacity-75 border border-secondary border-opacity-40 rounded-pill px-3 py-1.5 text-light small">
-                                    <i class="fa-solid fa-user text-primary"></i>
-                                    <span class="fw-semibold text-white me-1">{{ app.user.username }}</span>
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <span class="badge bg-danger rounded-pill px-2">ADMIN</span>
-                                    {% else %}
-                                        <span class="badge bg-secondary rounded-pill px-2">USER</span>
-                                    {% endif %}
-                                </div>
+                            <li class="nav-item me-2 d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-user text-secondary"></i>
+                                <span class="text-white fw-semibold">{{ app.user.username }}</span>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <span class="badge bg-danger px-2 py-1">ADMIN</span>
+                                {% else %}
+                                    <span class="badge bg-secondary px-2 py-1">USER</span>
+                                {% endif %}
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item">
