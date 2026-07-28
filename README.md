@@ -2,7 +2,7 @@
 
 Stack technique PHP - Symfony 7 et php 8.3.7
 
-- [ ] Utiliser postres
+- [ ] Utiliser postgres
 
 - [ ] Creer une base de donnees  test_cisad
 
