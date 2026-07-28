@@ -1,40 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Importation CSV - Cisad Gaming{% endblock %}
+{% block title %}Importation CSV - Cisad{% endblock %}
 
 {% block body %}
 <div class="row justify-content-center mt-4">
-    <div class="col-md-7 col-lg-6">
-        <div class="card card-custom p-4 shadow-lg">
-            <div class="text-center mb-4">
-                <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-20 text-primary p-3 rounded-circle mb-3 fs-3">
-                    <i class="fa-solid fa-file-csv"></i>
-                </div>
-                <h1 class="h3 fw-bold text-white mb-2">Importation Utilisateurs via CSV</h1>
-                <p class="text-secondary small mb-0">
-                    Sélectionnez un fichier CSV structuré pour créer plusieurs comptes et leurs statistiques.
-                </p>
-            </div>
-
-            <div class="p-3 bg-dark border border-secondary border-opacity-50 rounded mb-4 small">
-                <div class="fw-semibold text-light mb-1"><i class="fa-solid fa-circle-info text-primary me-1"></i> Format attendu du fichier :</div>
-                <code class="text-emerald-400 d-block p-2 bg-black bg-opacity-50 rounded">username;email;password;roles;rank;victoire;defaite</code>
-                <div class="text-secondary mt-2">💡 Conseil : Vous pouvez sélectionner le fichier <code>test.csv</code> situé à la racine du projet.</div>
-            </div>
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h1 class="h4 mb-3 fw-bold">Importation d'utilisateurs via CSV</h1>
+            <p class="text-muted small mb-3">
+                Sélectionnez un fichier CSV structuré avec les colonnes suivantes :<br>
+                <code>username;email;password;roles;rank;victoire;defaite</code>
+            </p>
 
             {{ form_start(form) }}
-                <div class="mb-4">
-                    {{ form_label(form.file, null, {'label_attr': {'class': 'form-label fw-medium text-light'}}) }}
-                    {{ form_widget(form.file, {'attr': {'class': 'form-control bg-dark text-light border-secondary py-2'}}) }}
-                    <div class="text-danger small mt-1.5">{{ form_errors(form.file) }}</div>
+                <div class="mb-3">
+                    {{ form_label(form.file, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.file, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger small mt-1">{{ form_errors(form.file) }}</div>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center pt-2">
-                    <a href="{{ path('app_admin_user_index') }}" class="btn-human btn-human-secondary">
-                        <i class="fa-solid fa-arrow-left"></i> Retour
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a href="{{ path('app_admin_user_index') }}" class="btn btn-outline-secondary">
+                        Annuler
                     </a>
-                    <button type="submit" class="btn-human btn-human-primary px-4">
-                        <i class="fa-solid fa-upload"></i> Lancer l'Importation
+                    <button type="submit" class="btn btn-primary">
+                        Importer le fichier
                     </button>
                 </div>
             {{ form_end(form) }}

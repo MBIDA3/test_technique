@@ -1,59 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Profil - Cisad Gaming{% endblock %}
+{% block title %}Mon Profil - Cisad{% endblock %}
 
 {% block body %}
 <div class="row justify-content-center mt-4">
-    <div class="col-md-8 col-lg-7">
-        <div class="card card-custom p-4 shadow-lg">
-            <div class="d-flex align-items-center mb-4">
-                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3 fs-2" style="width: 70px; height: 70px;">
-                    👤
-                </div>
-                <div>
-                    <h1 class="h3 fw-bold mb-1">Mon Profil</h1>
-                    <p class="text-muted mb-0">Bienvenue sur votre espace gamer, <strong class="text-info">{{ user.username }}</strong></p>
-                </div>
-            </div>
-
-            <hr class="border-secondary mb-4">
+    <div class="col-md-7">
+        <div class="card p-4">
+            <h1 class="h3 fw-bold mb-4">Mon Profil</h1>
 
             <div class="row g-3 mb-4">
                 <div class="col-sm-6">
-                    <div class="p-3 border border-secondary rounded bg-dark">
-                        <span class="text-muted small d-block">Nom d'utilisateur (`username`)</span>
-                        <strong class="fs-5 text-light">{{ user.username }}</strong>
+                    <div class="p-3 bg-light rounded border">
+                        <span class="text-muted small d-block">Nom d'utilisateur</span>
+                        <strong class="fs-5">{{ user.username }}</strong>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="p-3 border border-secondary rounded bg-dark">
+                    <div class="p-3 bg-light rounded border">
                         <span class="text-muted small d-block">Adresse Email</span>
-                        <strong class="fs-5 text-light">{{ user.email }}</strong>
+                        <strong class="fs-5">{{ user.email }}</strong>
                     </div>
                 </div>
             </div>
 
-            <h2 class="h5 fw-bold mb-3">🎮 Statistiques de Jeu & Rang</h2>
+            <h2 class="h5 fw-bold mb-3">Statistiques de jeu</h2>
 
             <div class="row g-3">
                 <div class="col-sm-4">
-                    <div class="p-3 text-center border border-secondary rounded bg-dark">
-                        <span class="text-muted small d-block mb-1">Rang Actuel</span>
+                    <div class="p-3 text-center bg-light rounded border">
+                        <span class="text-muted small d-block mb-1">Rang</span>
                         <span class="badge bg-primary fs-6 px-3 py-2 rank-badge">
-                            🏆 {{ infos ? infos.rank|default('Unranked') : 'Unranked' }}
+                            {{ infos ? infos.rank|default('Unranked') : 'Unranked' }}
                         </span>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="p-3 text-center border border-secondary rounded bg-dark">
+                    <div class="p-3 text-center bg-light rounded border">
                         <span class="text-muted small d-block mb-1">Victoires</span>
-                        <strong class="fs-3 text-success">{{ infos ? infos.victoire|default('0') : '0' }}</strong>
+                        <strong class="fs-3 text-success font-monospace">{{ infos ? infos.victoire|default('0') : '0' }}</strong>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="p-3 text-center border border-secondary rounded bg-dark">
+                    <div class="p-3 text-center bg-light rounded border">
                         <span class="text-muted small d-block mb-1">Défaites</span>
-                        <strong class="fs-3 text-danger">{{ infos ? infos.defaite|default('0') : '0' }}</strong>
+                        <strong class="fs-3 text-danger font-monospace">{{ infos ? infos.defaite|default('0') : '0' }}</strong>
                     </div>
                 </div>
             </div>
