@@ -20,7 +20,8 @@ class RegistrationController extends AbstractController
     public function register(
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        \Symfony\Bundle\SecurityBundle\Security $security
     ): Response {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home');
@@ -47,9 +48,9 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre compte a été créé avec succès ! Vous pouvez maintenant vous connecter.');
+            $this->addFlash('success', 'Votre compte a été créé avec succès ! Bienvenue sur votre profil.');
 
-            return $this->redirectToRoute('app_login');
+            return $security->login($user, 'form_login', 'main') ?? $this->redirectToRoute('app_user_profile');
         }
 
         return $this->render('registration/register.html.twig', [
