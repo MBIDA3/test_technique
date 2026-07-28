@@ -2,230 +2,184 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Cisad Gaming - Platform{% endblock %}</title>
+        <title>{% block title %}Cisad Gaming{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
-        <!-- Google Fonts: Inter & Outfit -->
+        <!-- Google Fonts: Inter -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <!-- Bootstrap 5 CDN -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- FontAwesome Icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         
         <style>
+            /* Palette Humaine & Naturelle (Slate / Marine / Émeraude) */
             :root {
-                --bg-main: #0b0f19;
-                --bg-card: rgba(22, 27, 46, 0.75);
-                --bg-card-hover: rgba(30, 38, 64, 0.85);
-                --border-color: rgba(255, 255, 255, 0.08);
-                --accent-primary: #6366f1;
-                --accent-primary-hover: #4f46e5;
-                --accent-emerald: #10b981;
-                --accent-purple: #8b5cf6;
-                --accent-rose: #f43f5e;
-                --accent-amber: #f59e0b;
-                --text-muted: #94a3b8;
+                --bg-body: #0f172a;        /* Slate 900 */
+                --bg-surface: #1e293b;     /* Slate 800 */
+                --bg-surface-hover: #334155;/* Slate 700 */
+                --border-subtle: #334155;  /* Slate 700 */
+                --text-primary: #f8fafc;   /* Slate 50 */
+                --text-secondary: #94a3b8; /* Slate 400 */
+                
+                --btn-primary-bg: #2563eb; /* Bleu Professionnel */
+                --btn-primary-hover: #1d4ed8;
+                
+                --btn-success-bg: #059669; /* Émeraude Naturel */
+                --btn-success-hover: #047857;
+                
+                --btn-danger-bg: #dc2626;  /* Rouge Sobriété */
+                --btn-danger-hover: #b91c1c;
             }
 
             body {
-                background: radial-gradient(circle at top center, #1e1b4b 0%, #0b0f19 60%, #05070e 100%);
-                color: #f1f5f9;
+                background-color: var(--bg-body);
+                color: var(--text-primary);
                 min-height: 100vh;
-                font-family: 'Inter', sans-serif;
-                background-attachment: fixed;
+                font-family: 'Inter', system-ui, -apple-system, sans-serif;
             }
 
-            h1, h2, h3, h4, .navbar-brand {
-                font-family: 'Outfit', sans-serif;
-            }
-
-            /* Custom Glassmorphism Cards */
+            /* Cartes Sobres et Professionnelles */
             .card-custom {
-                background: var(--bg-card);
-                backdrop-filter: blur(16px);
-                -webkit-backdrop-filter: blur(16px);
-                border: 1px solid var(--border-color);
-                border-radius: 16px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                background-color: var(--bg-surface);
+                border: 1px solid var(--border-subtle);
+                border-radius: 12px;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
             }
 
-            /* Navbar Styling */
+            /* Navigation Épurée */
             .navbar-custom {
-                background: rgba(11, 15, 25, 0.8);
-                backdrop-filter: blur(20px);
-                border-bottom: 1px solid var(--border-color);
-                padding: 0.85rem 0;
+                background-color: #0b1329;
+                border-bottom: 1px solid var(--border-subtle);
+                padding: 0.75rem 0;
             }
             .navbar-brand {
-                font-size: 1.4rem;
-                background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+                font-weight: 700;
+                font-size: 1.25rem;
+                color: #ffffff !important;
             }
 
-            /* Premium Buttons Design */
-            .btn-action {
-                border-radius: 10px;
+            /* Boutons Humains, Solides et Soignés */
+            .btn-human {
                 font-weight: 500;
                 font-size: 0.875rem;
                 padding: 0.5rem 1rem;
-                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                border-radius: 8px;
+                transition: background-color 0.15s ease, border-color 0.15s ease;
                 display: inline-flex;
                 align-items: center;
-                gap: 0.5rem;
-                border: none;
+                gap: 0.4rem;
+                border: 1px solid transparent;
                 text-decoration: none;
+                cursor: pointer;
             }
 
-            .btn-action-sm {
-                padding: 0.375rem 0.75rem;
-                font-size: 0.8125rem;
-                border-radius: 8px;
-            }
-
-            .btn-gradient-primary {
-                background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-                color: #ffffff;
-                box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
-            }
-            .btn-gradient-primary:hover {
-                background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-                color: #ffffff;
-                transform: translateY(-1px);
-                box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-            }
-
-            .btn-gradient-success {
-                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-                color: #ffffff;
-                box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
-            }
-            .btn-gradient-success:hover {
-                background: linear-gradient(135deg, #059669 0%, #047857 100%);
-                color: #ffffff;
-                transform: translateY(-1px);
-                box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
-            }
-
-            .btn-gradient-warning {
-                background: rgba(245, 158, 11, 0.15);
-                color: #fbbf24;
-                border: 1px solid rgba(245, 158, 11, 0.3);
-            }
-            .btn-gradient-warning:hover {
-                background: rgba(245, 158, 11, 0.25);
-                color: #fef08a;
-                border-color: rgba(245, 158, 11, 0.5);
-            }
-
-            .btn-gradient-info {
-                background: rgba(99, 102, 241, 0.15);
-                color: #a5b4fc;
-                border: 1px solid rgba(99, 102, 241, 0.3);
-            }
-            .btn-gradient-info:hover {
-                background: rgba(99, 102, 241, 0.25);
-                color: #c7d2fe;
-                border-color: rgba(99, 102, 241, 0.5);
-            }
-
-            .btn-gradient-danger {
-                background: rgba(244, 63, 94, 0.15);
-                color: #fda4af;
-                border: 1px solid rgba(244, 63, 94, 0.3);
-            }
-            .btn-gradient-danger:hover {
-                background: rgba(244, 63, 94, 0.3);
-                color: #fff;
-                border-color: rgba(244, 63, 94, 0.6);
-            }
-
-            /* Custom Badges */
-            .badge-rank {
-                font-weight: 600;
+            .btn-human-sm {
                 padding: 0.35rem 0.75rem;
-                border-radius: 20px;
-                font-size: 0.8rem;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
+                font-size: 0.8125rem;
+                border-radius: 6px;
             }
 
-            .badge-rank-challenger {
-                background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-                color: #fff;
-                box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+            /* Bouton Principal Bleu */
+            .btn-human-primary {
+                background-color: var(--btn-primary-bg);
+                color: #ffffff;
             }
-            .badge-rank-diamant {
-                background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
-                color: #fff;
-            }
-            .badge-rank-platine {
-                background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
-                color: #fff;
-            }
-            .badge-rank-gold {
-                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-                color: #fff;
-            }
-            .badge-rank-silver {
-                background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
-                color: #fff;
-            }
-            .badge-rank-iron {
-                background: linear-gradient(135deg, #475569 0%, #334155 100%);
-                color: #cbd5e1;
+            .btn-human-primary:hover {
+                background-color: var(--btn-primary-hover);
+                color: #ffffff;
             }
 
-            /* Table Customization */
-            .table-custom {
+            /* Bouton Succès Vert */
+            .btn-human-success {
+                background-color: var(--btn-success-bg);
+                color: #ffffff;
+            }
+            .btn-human-success:hover {
+                background-color: var(--btn-success-hover);
+                color: #ffffff;
+            }
+
+            /* Bouton Secondaire / Édition */
+            .btn-human-secondary {
+                background-color: #334155;
+                color: #f1f5f9;
+                border-color: #475569;
+            }
+            .btn-human-secondary:hover {
+                background-color: #475569;
+                color: #ffffff;
+            }
+
+            /* Bouton Avertissement / Stats (Ambre doux) */
+            .btn-human-amber {
+                background-color: #d97706;
+                color: #ffffff;
+            }
+            .btn-human-amber:hover {
+                background-color: #b45309;
+                color: #ffffff;
+            }
+
+            /* Bouton Danger / Supprimer */
+            .btn-human-danger {
+                background-color: #7f1d1d;
+                color: #fca5a5;
+                border-color: #991b1b;
+            }
+            .btn-human-danger:hover {
+                background-color: var(--btn-danger-bg);
+                color: #ffffff;
+            }
+
+            /* Badges de Rangs Simples et Lisibles */
+            .badge-human {
+                font-weight: 600;
+                padding: 0.3rem 0.65rem;
+                border-radius: 6px;
+                font-size: 0.75rem;
+            }
+            .badge-human-challenger { background-color: #831843; color: #fbcfe8; border: 1px solid #9d174d; }
+            .badge-human-diamant { background-color: #164e63; color: #a5f3fc; border: 1px solid #155e75; }
+            .badge-human-platine { background-color: #064e3b; color: #a7f3d0; border: 1px solid #065f46; }
+            .badge-human-gold { background-color: #78350f; color: #fef08a; border: 1px solid #92400e; }
+            .badge-human-silver { background-color: #334155; color: #e2e8f0; border: 1px solid #475569; }
+            .badge-human-iron { background-color: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+
+            /* Tableaux Sobres */
+            .table-human {
                 --bs-table-bg: transparent;
-                --bs-table-color: #e2e8f0;
+                --bs-table-color: var(--text-primary);
                 margin-bottom: 0;
             }
-            .table-custom th {
+            .table-human th {
                 font-size: 0.75rem;
                 text-transform: uppercase;
-                letter-spacing: 1px;
-                color: var(--text-muted);
-                border-bottom: 1px solid var(--border-color);
-                padding: 1rem 1.25rem;
+                letter-spacing: 0.05em;
+                color: var(--text-secondary);
+                border-bottom: 1px solid var(--border-subtle);
+                padding: 0.85rem 1rem;
                 font-weight: 600;
+                background-color: #111827;
             }
-            .table-custom td {
-                padding: 1rem 1.25rem;
-                border-bottom: 1px solid var(--border-color);
+            .table-human td {
+                padding: 0.85rem 1rem;
+                border-bottom: 1px solid var(--border-subtle);
                 vertical-align: middle;
             }
-            .table-custom tbody tr {
-                transition: background-color 0.2s ease;
-            }
-            .table-custom tbody tr:hover {
-                background-color: var(--bg-card-hover);
-            }
-
-            .user-avatar-sm {
-                width: 36px;
-                height: 36px;
-                border-radius: 10px;
-                background: linear-gradient(135deg, #6366f1, #a855f7);
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 700;
-                font-size: 0.9rem;
-                color: #fff;
+            .table-human tbody tr:hover {
+                background-color: rgba(255, 255, 255, 0.03);
             }
         </style>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom mb-5">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom mb-4">
             <div class="container">
-                <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ path('app_home') }}">
-                    <i class="fa-solid fa-gamepad text-indigo-400"></i> Cisad Gaming
+                <a class="navbar-brand d-flex align-items-center gap-2" href="{{ path('app_home') }}">
+                    <i class="fa-solid fa-gamepad text-primary"></i> Cisad Gaming
                 </a>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -234,44 +188,33 @@
                     <ul class="navbar-nav ms-auto align-items-center gap-2">
                         {% if app.user %}
                             <li class="nav-item me-2">
-                                <div class="d-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-dark border border-secondary border-opacity-25">
-                                    <div class="user-avatar-sm">
-                                        {{ app.user.username|first|upper }}
-                                    </div>
-                                    <span class="fw-semibold text-light small">{{ app.user.username }}</span>
+                                <span class="badge bg-slate border border-secondary text-light px-3 py-2 fw-normal">
+                                    👤 <strong>{{ app.user.username }}</strong>
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <span class="badge bg-danger bg-opacity-75 text-white rounded-pill px-2">ADMIN</span>
+                                        <span class="badge bg-danger ms-1">ADMIN</span>
                                     {% else %}
-                                        <span class="badge bg-info bg-opacity-75 text-white rounded-pill px-2">USER</span>
+                                        <span class="badge bg-info ms-1">USER</span>
                                     {% endif %}
-                                </div>
+                                </span>
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_dashboard') }}">
-                                        <i class="fa-solid fa-chart-line me-1"></i> Dashboard
-                                    </a>
+                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_user_index') }}">
-                                        <i class="fa-solid fa-users me-1"></i> Utilisateurs
-                                    </a>
+                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_csv_import') }}">
-                                        <i class="fa-solid fa-file-csv me-1"></i> Importer CSV
-                                    </a>
+                                    <a class="nav-link text-slate-300" href="{{ path('app_admin_csv_import') }}">Importer CSV</a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link text-slate-300" href="{{ path('app_user_profile') }}">
-                                        <i class="fa-solid fa-user me-1"></i> Mon Profil
-                                    </a>
+                                    <a class="nav-link text-slate-300" href="{{ path('app_user_profile') }}">Mon Profil</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item ms-2">
-                                <a class="btn-action btn-action-sm btn-gradient-danger" href="{{ path('app_logout') }}">
-                                    <i class="fa-solid fa-power-off"></i> Déconnexion
+                                <a class="btn-human btn-human-sm btn-human-danger" href="{{ path('app_logout') }}">
+                                    Déconnexion
                                 </a>
                             </li>
                         {% else %}
@@ -279,8 +222,8 @@
                                 <a class="nav-link text-slate-300" href="{{ path('app_login') }}">Connexion</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn-action btn-gradient-primary ms-2" href="{{ path('app_register') }}">
-                                    <i class="fa-solid fa-user-plus"></i> Inscription
+                                <a class="btn-human btn-human-primary ms-2" href="{{ path('app_register') }}">
+                                    Inscription
                                 </a>
                             </li>
                         {% endif %}
@@ -293,10 +236,7 @@
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="alert alert-{{ label == 'error' ? 'danger' : label }} alert-dismissible fade show card-custom border-0 mb-4" role="alert">
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="fa-solid fa-{{ label == 'error' ? 'circle-exclamation' : 'circle-check' }} fs-5"></i>
-                            <div>{{ message }}</div>
-                        </div>
+                        {{ message }}
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
                     </div>
                 {% endfor %}
